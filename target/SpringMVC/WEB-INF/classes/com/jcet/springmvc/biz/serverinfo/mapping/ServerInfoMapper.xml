@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jcet.springmvc.biz.serverinfo.dao.IServerInfoMapper">
+    <resultMap id="BaseResultMap" type="com.jcet.springmvc.biz.serverinfo.domain.ServerInfo">
+        <id column="SYSID" jdbcType="VARCHAR" property="sysid"/>
+        <result column="IP" jdbcType="VARCHAR" property="ip"/>
+        <result column="LOGINNAME" jdbcType="VARCHAR" property="loginname"/>
+        <result column="LOGINPWD" jdbcType="VARCHAR" property="loginpwd"/>
+        <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
+        <result column="PERSONCHARGE" jdbcType="VARCHAR" property="personcharge"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        SYSID,IP,LOGINNAME,LOGINPWD,REMARK,PERSONCHARGE
+    </sql>
+
+    <select id="searchByMap" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from CIM_SERVER_INFO
+        where 1=1
+        <if test="ip!= null">
+            and IP = #{ip,jdbcType=VARCHAR}
+        </if>
+        <if test="loginname!=null">
+            and LOGINNAME = #{loginname,jdbcType=VARCHAR}
+        </if>
+        <if test="personcharge!=null">
+            and PERSONCHARGE = #{personcharge,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+<!--    <insert id="insertSelective" parameterType="com.jcet.springmvc.biz.serverinfo.domain.ServerInfo">
+
+    </insert>-->
+
+</mapper>

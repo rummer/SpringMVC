@@ -1,0 +1,43 @@
+﻿.loginInfo {
+	border:0px solid red;
+	display:block;
+	position:absolute;
+	bottom:5px;
+	right:10px;
+	font-size: 14px;
+	font-family: Tahoma, Verdana, 微软雅黑, 宋体;
+	color:white;
+	line-height:3em;
+}
+.footer {
+	float: left;
+	width: 60%;
+	margin: 0 0 0 100px;
+	padding: 0 0 0 100px;
+	text-align: center;
+	color: #15428B;
+	margin: 0px;
+	padding: 0px;
+	line-height: 23px;
+	font-weight: bold;
+}
+#nowTime{
+	float: left;
+	border:0px solid red;
+	height:100%;
+	width:20%;
+	text-align:center;
+	overflow:hidden;
+	right:10px;
+	line-height: 23px;
+	top:3px;
+}
+#search_area {
+	margin-bottom: 3px;
+	border: 1px solid #99BBE8;
+	background-color: #EFEFEF;
+}
+
+#conditon{
+	overflow:hidden;
+}

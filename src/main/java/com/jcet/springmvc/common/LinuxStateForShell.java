@@ -25,7 +25,17 @@ public class LinuxStateForShell {
     public static final String FILES_SHELL = "df -hl";
     public static final String[] COMMANDS = {CPU_MEM_SHELL, FILES_SHELL};
     public static final String LINE_SEPARATOR = System.getProperty("line.separator");
-    private static Session session;
+    private Session session;
+    private String user;
+    private String password;
+    private String hostip;
+
+    public LinuxStateForShell(String user, String passwd, String host){
+        this.user = user;
+        this.password = passwd;
+        this.hostip = host;
+
+    }
 
     /**
      * 连接到指定的HOST
@@ -33,7 +43,7 @@ public class LinuxStateForShell {
      * @return isConnect
      * @throws JSchException JSchException
      */
-    private static boolean connect(String user, String passwd, String host) {
+    private boolean connect(String user, String passwd, String host) {
         JSch jsch = new JSch();
         try {
             session = jsch.getSession(user, host, 22);
@@ -56,13 +66,10 @@ public class LinuxStateForShell {
      * 远程连接Linux 服务器 执行相关的命令
      *
      * @param commands 执行的脚本
-     * @param user     远程连接的用户名
-     * @param passwd   远程连接的密码
-     * @param host     远程连接的主机IP
      * @return 最终命令返回信息
      */
-    public static Map<String, String> runDistanceShell(String[] commands, String user, String passwd, String host) {
-        if (!connect(user, passwd, host)) {
+    public Map<String, String> runDistanceShell(String[] commands) {
+        if (!connect(this.user, this.password, this.hostip)) {
             return null;
         }
         Map<String, String> map = new HashMap<String,String>();
@@ -119,7 +126,7 @@ public class LinuxStateForShell {
      * @param commands 执行的脚本
      * @return 执行结果信息
      */
-    public static Map<String, String> runLocalShell(String[] commands) {
+    public Map<String, String> runLocalShell(String[] commands) {
         Runtime runtime = Runtime.getRuntime();
 
         Map<String, String> map = new HashMap<String,String>();
@@ -162,7 +169,7 @@ public class LinuxStateForShell {
      * @param result shell 返回的信息
      * @return 最终处理后的信息
      */
-    private static String disposeResultMessage(Map<String, String> result) {
+    public String disposeResultMessage(Map<String, String> result) {
 
         StringBuilder buffer = new StringBuilder();
 
@@ -185,7 +192,8 @@ public class LinuxStateForShell {
                             e.printStackTrace();
                             cpuStr += "计算过程出错";
                         }
-                        buffer.append(cpuStr).append(LINE_SEPARATOR);
+                        //buffer.append(cpuStr).append(LINE_SEPARATOR);
+                        buffer.append(cpuStr).append("<br>");
 
                         //处理内存 Mem:  66100704k total, 65323404k used,   777300k free,    89940k buffers
                     } else if (line.startsWith("MEM")) {
@@ -203,8 +211,8 @@ public class LinuxStateForShell {
                             buffer.append(memStr).append(LINE_SEPARATOR);
                             continue;
                         }
-                        buffer.append(memStr).append(LINE_SEPARATOR);
-
+                        //buffer.append(memStr).append(LINE_SEPARATOR);
+                        buffer.append(memStr).append("<br>");
                     }
                 }
             } else if (command.equals(FILES_SHELL)) {
@@ -214,7 +222,8 @@ public class LinuxStateForShell {
                     buffer.append(disposeFilesSystem(commandResult)).append(LINE_SEPARATOR);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    buffer.append("计算过程出错").append(LINE_SEPARATOR);
+                    //buffer.append("计算过程出错").append(LINE_SEPARATOR);
+                    buffer.append("计算过程出错").append("<br>");
                 }
             }
         }
@@ -234,7 +243,7 @@ public class LinuxStateForShell {
      * @param commandResult 处理系统磁盘状态shell执行结果
      * @return 处理后的结果
      */
-    private static String disposeFilesSystem(String commandResult) {
+    public String disposeFilesSystem(String commandResult) {
         String[] strings = commandResult.split(LINE_SEPARATOR);
 
         // final String PATTERN_TEMPLATE = "([a-zA-Z0-9%_/]*)\\s";
@@ -260,7 +269,7 @@ public class LinuxStateForShell {
                 }
             }
         }
-        return new StringBuilder().append("大小 ").append(size).append("G , 已使用").append(used).append("G ,空闲")
+        return new StringBuilder().append("已使用 ").append(size).append("G , 剩余").append(used).append("G ,空闲")
                 .append(size - used).append("G").toString();
     }
 
@@ -271,7 +280,7 @@ public class LinuxStateForShell {
      * @param s 带单位的数据字符串
      * @return 以G 为单位处理后的数值
      */
-    private static int disposeUnit(String s) {
+    public int disposeUnit(String s) {
 
         try {
             s = s.toUpperCase();
@@ -292,11 +301,6 @@ public class LinuxStateForShell {
             return 0;
         }
         return 0;
-    }
-
-    public static void main(String[] args) {
-        Map<String, String> result = runDistanceShell(COMMANDS, "root", "123456", "172.17.253.80");
-        System.out.println(disposeResultMessage(result));
     }
 
 }
