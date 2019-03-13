@@ -7,5 +7,9 @@ import java.util.Map;
 
 public interface IServerInfoService {
 
-    public List<ServerInfo> searchByMap(Map map);
+    List<ServerInfo> searchByMap(Map map);
+
+    int updateByPrimaryKey(ServerInfo serverInfo);
+
+    int insertBySelective(ServerInfo serverInfo);
 }

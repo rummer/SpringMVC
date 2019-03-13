@@ -8,17 +8,23 @@
         <result column="LOGINPWD" jdbcType="VARCHAR" property="loginpwd"/>
         <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
         <result column="PERSONCHARGE" jdbcType="VARCHAR" property="personcharge"/>
+        <result column="CREATED_BY" jdbcType="VARCHAR" property="created_by"/>
+        <result column="CREATED_DATE" jdbcType="VARCHAR" property="created_date"/>
+        <result column="FLAG" jdbcType="VARCHAR" property="flag"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        SYSID,IP,LOGINNAME,LOGINPWD,REMARK,PERSONCHARGE
+        SYSID,IP,LOGINNAME,LOGINPWD,REMARK,PERSONCHARGE,CREATED_BY,TO_CHAR(CREATED_DATE,'YYYY-MM-DD HH24:MI:SS') CREATED_DATE ,FLAG
     </sql>
 
     <select id="searchByMap" parameterType="java.util.HashMap" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from CIM_SERVER_INFO
-        where 1=1
+        where Flag = 'T'
+        <if test="sysid != null">
+            and sysid = #{sysid,jdbcType=VARCHAR}
+        </if>
         <if test="ip!= null">
             and IP = #{ip,jdbcType=VARCHAR}
         </if>
@@ -30,8 +36,111 @@
         </if>
     </select>
 
-<!--    <insert id="insertSelective" parameterType="com.jcet.springmvc.biz.serverinfo.domain.ServerInfo">
+    <update id="updateByPrimaryKey" parameterType="com.jcet.springmvc.biz.serverinfo.domain.ServerInfo">
+        update CIM_SERVER_INFO
+        <set>
+            <if test="ip!= null">
+                IP = #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="loginname!=null">
+                LOGINNAME = #{loginname,jdbcType=VARCHAR},
+            </if>
+            <if test="loginpwd!=null">
+                LOGINPWD = #{loginpwd,jdbcType=VARCHAR},
+            </if>
+            <if test="personcharge!=null">
+                PERSONCHARGE = #{personcharge,jdbcType=VARCHAR},
+            </if>
+            <if test="remark!=null">
+                REMARK = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="flag!=null">
+                FLAG = #{flag,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where sysid = #{sysid,jdbcType=VARCHAR}
+    </update>
 
-    </insert>-->
+    <insert id="insertBySelective" parameterType="com.jcet.springmvc.biz.serverinfo.domain.ServerInfo">
+          insert into cim_server_info
+          (sysid,ip,loginname,loginpwd,personcharge,remark,created_by,created_date,flag)
+          <trim prefix="values (" suffix=")" suffixOverrides=",">
+              sys_guid(),
+              <if test="ip != null">
+                  #{ip,jdbcType=VARCHAR},
+              </if>
+              <if test="loginname != null">
+                  #{loginname,jdbcType=VARCHAR},
+              </if>
+              <if test="loginpwd != null">
+                  #{loginpwd,jdbcType=VARCHAR},
+              </if>
+              <if test="personcharge != null">
+                  #{personcharge,jdbcType=VARCHAR},
+              </if>
+              <if test="remark != null">
+                  #{remark,jdbcType=VARCHAR},
+              </if>
+              <if test="created_by != null">
+                  #{created_by,jdbcType=VARCHAR},
+              </if>
+              sysdate,
+              <if test="flag != null">
+                  #{flag,jdbcType=VARCHAR},
+              </if>
+          </trim>
+
+        <!--insert into cim_server_info
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+          SYSID,
+          <if test="ip !=null">
+              IP,
+          </if>
+          <if test="loginname !=null">
+              LOGINNAME,
+          </if>
+          <if test="loginpwd != null">
+              LOGINPWD,
+          </if>
+          <if test="personcharge !=null">
+               PERSONCHARGE,
+          </if>
+          <if test="remark !=null">
+                REMARK,
+          </if>
+          <if test="created_by !=null">
+              created_by,
+          </if>
+          created_date,
+          <if test="flag !=null">
+              flag,
+          </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides=",">
+          sys_guid(),
+          <if test="ip != null">
+              #{ip,jdbcType=VARCHAR},
+          </if>
+          <if test="loginname != null">
+              #{loginname,jdbcType=VARCHAR},
+          </if>
+          <if test="loginpwd != null">
+              #{loginpwd,jdbcType=VARCHAR},
+          </if>
+          <if test="personcharge != null">
+              #{personcharge,jdbcType=VARCHAR},
+          </if>
+          <if test="remark != null">
+              #{remark,jdbcType=VARCHAR},
+          </if>
+          <if test="created_by != null">
+              #{created_by,jdbcType=VARCHAR},
+          </if>
+              sysdate,
+          <if test="flag != null">
+              #{flag,jdbcType=VARCHAR},
+          </if>
+      </trim>-->
+    </insert>
 
 </mapper>

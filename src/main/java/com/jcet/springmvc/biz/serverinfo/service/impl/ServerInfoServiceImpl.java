@@ -21,4 +21,14 @@ public class ServerInfoServiceImpl implements IServerInfoService {
     public List<ServerInfo> searchByMap(Map map) {
         return this.IServerInfoMapper.searchByMap(map);
     }
+
+    @Override
+    public int updateByPrimaryKey(ServerInfo serverInfo) {
+        return this.IServerInfoMapper.updateByPrimaryKey(serverInfo);
+    }
+
+    @Override
+    public int insertBySelective(ServerInfo serverInfo) {
+        return this.IServerInfoMapper.insertBySelective(serverInfo);
+    }
 }

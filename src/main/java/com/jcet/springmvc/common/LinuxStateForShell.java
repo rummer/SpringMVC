@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -269,8 +270,8 @@ public class LinuxStateForShell {
                 }
             }
         }
-        return new StringBuilder().append("已使用 ").append(size).append("G , 剩余").append(used).append("G ,空闲")
-                .append(size - used).append("G").toString();
+        return new StringBuilder().append("已使用 ").append(size).append("G , 剩余").append(used).append("G ,总共")
+                .append(size + used).append("G").toString();
     }
 
     /**
@@ -280,21 +281,23 @@ public class LinuxStateForShell {
      * @param s 带单位的数据字符串
      * @return 以G 为单位处理后的数值
      */
-    public int disposeUnit(String s) {
+    public double disposeUnit(String s) {
 
         try {
             s = s.toUpperCase();
             String lastIndex = s.substring(s.length() - 1);
             String num = s.substring(0, s.length() - 1);
-            int parseInt = Integer.parseInt(num);
+            //int parseInt = Integer.parseInt(num);
+            Double parseDouble = Double.parseDouble(num);
+            parseDouble = Math.round(parseDouble*100)/100.00;
             if (lastIndex.equals("G")) {
-                return parseInt;
+                return parseDouble;
             } else if (lastIndex.equals("T")) {
-                return parseInt * 1024;
+                return parseDouble * 1024;
             } else if (lastIndex.equals("M")) {
-                return parseInt / 1024;
+                return Math.round(parseDouble / 1024*100)/100.00;
             } else if (lastIndex.equals("K") || lastIndex.equals("KB")) {
-                return parseInt / (1024 * 1024);
+                return Math.round(parseDouble / (1024 * 1024)*100)/100.00;
             }
         } catch (NumberFormatException e) {
             e.printStackTrace();

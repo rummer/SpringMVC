@@ -10,7 +10,8 @@ public class ServerInfo {
     private String remark;
     private String personcharge;
     private String created_by;
-    private Date create_date;
+    private Date created_date;
+    private String flag;
 
     public String getSysid() {
         return sysid;
@@ -68,11 +69,15 @@ public class ServerInfo {
         this.created_by = created_by;
     }
 
-    public Date getCreate_date() {
-        return create_date;
+    public Date getCreated_date() {
+        return created_date;
     }
 
-    public void setCreate_date(Date create_date) {
-        this.create_date = create_date;
+    public void setCreated_date(Date created_date) {
+        this.created_date = created_date;
     }
+
+    public String getFlag() { return flag; }
+
+    public void setFlag(String flag) { this.flag = flag; }
 }
