@@ -89,58 +89,6 @@
                   #{flag,jdbcType=VARCHAR},
               </if>
           </trim>
-
-        <!--insert into cim_server_info
-      <trim prefix="(" suffix=")" suffixOverrides=",">
-          SYSID,
-          <if test="ip !=null">
-              IP,
-          </if>
-          <if test="loginname !=null">
-              LOGINNAME,
-          </if>
-          <if test="loginpwd != null">
-              LOGINPWD,
-          </if>
-          <if test="personcharge !=null">
-               PERSONCHARGE,
-          </if>
-          <if test="remark !=null">
-                REMARK,
-          </if>
-          <if test="created_by !=null">
-              created_by,
-          </if>
-          created_date,
-          <if test="flag !=null">
-              flag,
-          </if>
-      </trim>
-      <trim prefix="values (" suffix=")" suffixOverrides=",">
-          sys_guid(),
-          <if test="ip != null">
-              #{ip,jdbcType=VARCHAR},
-          </if>
-          <if test="loginname != null">
-              #{loginname,jdbcType=VARCHAR},
-          </if>
-          <if test="loginpwd != null">
-              #{loginpwd,jdbcType=VARCHAR},
-          </if>
-          <if test="personcharge != null">
-              #{personcharge,jdbcType=VARCHAR},
-          </if>
-          <if test="remark != null">
-              #{remark,jdbcType=VARCHAR},
-          </if>
-          <if test="created_by != null">
-              #{created_by,jdbcType=VARCHAR},
-          </if>
-              sysdate,
-          <if test="flag != null">
-              #{flag,jdbcType=VARCHAR},
-          </if>
-      </trim>-->
     </insert>
 
 </mapper>

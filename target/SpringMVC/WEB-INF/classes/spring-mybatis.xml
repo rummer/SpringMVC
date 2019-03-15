@@ -85,7 +85,7 @@
     <tx:annotation-driven transaction-manager="transactionManager" />
 
     <!--计划任务-->
-    <bean id="synJob" class="com.jcet.springmvc.biz.serverinfo.controller.ServerInfoController"></bean>
+    <bean id="synJob" class="com.jcet.springmvc.biz.serverinforecord.controller.ServerInfoRecordController"></bean>
 
     <bean id="Servermonitor" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject">

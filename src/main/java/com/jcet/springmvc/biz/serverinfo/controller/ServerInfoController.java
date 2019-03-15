@@ -5,8 +5,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jcet.springmvc.biz.serverinfo.domain.ServerInfo;
 import com.jcet.springmvc.biz.serverinfo.service.IServerInfoService;
-import com.jcet.springmvc.common.LinuxStateForShell;
-import com.jcet.springmvc.common.Mail;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
@@ -15,14 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static com.jcet.springmvc.common.LinuxStateForShell.COMMANDS;
 
 @Controller
 @RequestMapping("/serverInfo")
@@ -31,29 +24,6 @@ public class  ServerInfoController {
 
     @Resource(name="ServerInfoService")
     private IServerInfoService serverInfoService;
-
-    @RequestMapping("/getServerInfo")
-    public void getServerInfo()
-    {
-        Map para = new HashMap();
-        List<ServerInfo> serverInfoList = this.serverInfoService.searchByMap(para);
-
-        LinuxStateForShell linuxinfo = new LinuxStateForShell("root","123456","172.17.253.80");
-        Map<String, String> result = linuxinfo.runDistanceShell(COMMANDS);
-        String s = linuxinfo.disposeResultMessage(result);
-        List<String> sinfo = new ArrayList<>();
-        //CPU使用占有率
-        Pattern p = Pattern.compile("\\d+(\\.\\d+)?");
-        Matcher m = p.matcher(s);
-        while(m.find()) {
-            sinfo.add(m.group());
-        }
-        System.out.println("CPU占有率:"+sinfo.get(0)+"%");
-        System.out.println("内存使用情况：总计："+linuxinfo.disposeUnit(sinfo.get(1)+"K")+"G，已使用："
-                +linuxinfo.disposeUnit(sinfo.get(2)+"K")+"G，空闲："+linuxinfo.disposeUnit(sinfo.get(3)+"K")+"G，缓存："+linuxinfo.disposeUnit(sinfo.get(4)+"K")+"G");
-        System.out.println("磁盘使用情况：已使用："+sinfo.get(5)+"G，剩余："+sinfo.get(6)+"G，总共："+sinfo.get(7)+"G");
-    }
-
 
     @RequestMapping("/serverConfig")
     public String serverConfig(HttpServletRequest request,ModelMap map)
