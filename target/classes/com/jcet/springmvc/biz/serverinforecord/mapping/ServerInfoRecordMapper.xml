@@ -25,35 +25,35 @@
           (SYSID,IP,CPU,MEMTOTAL,MEMUSED,MEMREMAIN,MEMCACHE,DISKTOTAL,DISKUSED,DISKREMAIN,CREATED_BY,CREATED_DATE)
           <trim prefix="values (" suffix=")" suffixOverrides=",">
               sys_guid(),
-              <if test="ip != null">
-                  #{ip,jdbcType=VARCHAR},
+              <if test="IP != null">
+                  #{IP,jdbcType=VARCHAR},
               </if>
-              <if test="cpu != null">
-                  #{cpu,jdbcType=VARCHAR},
+              <if test="CPU != null">
+                  #{CPU,jdbcType=VARCHAR},
               </if>
-              <if test="memtotal != null">
-                  #{memtotal,jdbcType=VARCHAR},
+              <if test="MEMTOTAL != null">
+                  #{MEMTOTAL,jdbcType=VARCHAR},
               </if>
-              <if test="memused != null">
-                  #{memused,jdbcType=VARCHAR},
+              <if test="MEMUSED != null">
+                  #{MEMUSED,jdbcType=VARCHAR},
               </if>
-              <if test="memremain != null">
-                  #{memremain,jdbcType=VARCHAR},
+              <if test="MEMREMAIN != null">
+                  #{MEMREMAIN,jdbcType=VARCHAR},
               </if>
-              <if test="memcache != null">
-                  #{memcache,jdbcType=VARCHAR},
+              <if test="MEMCACHE != null">
+                  #{MEMCACHE,jdbcType=VARCHAR},
               </if>
-              <if test="disktotal != null">
-                  #{disktotal,jdbcType=VARCHAR},
+              <if test="DISKTOTAL != null">
+                  #{DISKTOTAL,jdbcType=VARCHAR},
               </if>
-              <if test="diskused != null">
-                  #{diskused,jdbcType=VARCHAR},
+              <if test="DISKUSED != null">
+                  #{DISKUSED,jdbcType=VARCHAR},
               </if>
-              <if test="diskremain != null">
-                  #{diskremain,jdbcType=VARCHAR},
+              <if test="DISKREMAIN != null">
+                  #{DISKREMAIN,jdbcType=VARCHAR},
               </if>
-              <if test="created_by != null">
-                  #{created_by,jdbcType=VARCHAR},
+              <if test="CREATED_BY != null">
+                  #{CREATED_BY,jdbcType=VARCHAR},
               </if>
               sysdate,
           </trim>

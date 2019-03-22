@@ -199,4 +199,16 @@ public class  ServerInfoController {
 
             return "{}";
     }
+
+    @ResponseBody
+    @RequestMapping("/queryServerIp")
+    public String QueryServerIp(HttpServletRequest request,ModelMap modelMap){
+
+        Map map = new HashMap();
+        Map resultMap = new HashMap();
+        List<ServerInfo> serverInfoList = this.serverInfoService.searchByMap(map);
+        resultMap.put("ips",serverInfoList);
+
+        return JSON.toJSONString(resultMap);
+    }
 }
