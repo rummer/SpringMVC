@@ -91,8 +91,14 @@ public class ServerInfoRecordController {
 
         Map map = new HashMap();
         Map resultMap = new HashMap();
+
+        String ip = request.getParameter("serverIp")== null ? "" : request.getParameter("serverIp");
+        if(!"".equals(ip))
+        {
+            map.put("IP",ip);
+        }
         List<ServerInfoRecord> serverInfoList = this.serverInfoRecordService.SelectByMap(map);
-        resultMap.put("ips",serverInfoList);
+        resultMap.put("Record",serverInfoList);
 
         return JSON.toJSONString(resultMap);
     }

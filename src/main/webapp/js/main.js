@@ -17,6 +17,7 @@ var setting = {
         showTitle:true
     },
     callback:{
+        //beforeExpand: zTreeBeforeExpand,
         onExpand:zTreeOnExpand,
         onClick:function (e,id,node) {
             var zTree = $.fn.zTree.getZTreeObj("menuTree");
@@ -73,11 +74,18 @@ $(function(){
     });
 });
 
-function zTreeOnExpand(){
+function zTreeOnExpand(event,treeid,treeNode){
     var treeObj = $.fn.zTree.getZTreeObj("menuTree");
     var parentZNode = treeObj.getNodeByParam("id", 12, null);//获取指定父节点
+    //var childNodes = treeObj.transformToArray(parentZNode);//获取子节点集合
 
-    //获取所有的服务器
+
+    //删除12上的子树
+    var treeObj = $.fn.zTree.getZTreeObj("menuTree");
+    var parentZNode = treeObj.getNodeByParam("id", 12, null);//获取指定父节点
+    treeObj.removeChildNodes(parentZNode);
+
+    //重新获取子树
     var url = getRealPath()+'/serverInfo/queryServerIp';
     $.post(url,{},function(result,status) {
         var result = JSON.parse(result);
@@ -87,7 +95,15 @@ function zTreeOnExpand(){
         }
 
     });
+
 }
+
+/*function zTreeBeforeExpand(treeid,treeNode){
+    //删除12上的子树
+    var treeObj = $.fn.zTree.getZTreeObj("menuTree");
+    var parentZNode = treeObj.getNodeByParam("id", 12, null);//获取指定父节点
+    treeObj.removeChildNodes(parentZNode);
+}*/
 
 function getRealPath(){
     //获取当前网址，如： http://localhost:8083/myproj/view/my.jsp

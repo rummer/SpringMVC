@@ -60,4 +60,15 @@
 
     </insert>
 
+    <select id="SelectByMap" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        select
+        <!--<include refid="Base_Column_List"/>-->
+        CPU,TO_CHAR(CREATED_DATE,'YYYY-MM-DD HH24:MI:SS') CREATED_DATE
+        from CIM_SERVER_INFO_RECORD
+        where 1=1
+        <if test="IP!= null">
+            and IP = #{IP,jdbcType=VARCHAR}
+        </if>
+    </select>
+
 </mapper>
