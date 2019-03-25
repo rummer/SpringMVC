@@ -14,17 +14,11 @@
 
     <script type="text/javascript">
 
-        //获取地址的参数值
-        function GetQueryString(name) {
-            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-            var r = window.location.search.substr(1).match(reg);
-            if(r!=null)return  unescape(r[2]); return null;
-        }
-
         <!--页面刷新的时候执行 -->
         $(function(){
             setFsChartBar();
         });
+
         function setFsChartBar(){
             var Chart=echarts.init(document.getElementById("chartmain"));//初始化
             //用户等待
@@ -38,6 +32,15 @@
                 getData(Chart, serverIp);
             }, 10*1000);//每隔10秒刷新一次
         }
+
+        //获取地址的参数值
+        function GetQueryString(name) {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return  unescape(r[2]); return null;
+        }
+
+
         //获取数据的方法
         function getData(Chart,serverIp){
             //发送Ajax请求
@@ -61,23 +64,25 @@
                             text: 'CPU使用率统计'
                         },
 
+                        legend: {
+                            data:['CPU(%)']
+                        },
+
                         tooltip: {
                             trigger: 'axis'
                         },
 
-                        legend: {
-                            bottom:10,
-                            left:'center',
-                            data:['CPU(%)']
-                        },
-
                         xAxis: {
+                            type:'category',
                             trigger:'axis',
                             data:["2019-3-22 00:00","2019-3-22 01:00","2019-3-22 02:00","2019-3-22 03:00","2019-3-22 04:00"]
                         },
 
                         yAxis: {
-                            type: 'value'
+                            type: 'value',
+                            axisLabel:{
+                                formatter:'{value}%'
+                            }
                         },
                         series : [{
                             name:'CPU',
