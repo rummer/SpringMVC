@@ -69,6 +69,8 @@
         <if test="IP!= null">
             and IP = #{IP,jdbcType=VARCHAR}
         </if>
+        and CREATED_DATE > sysdate-24/24
+        order by CREATED_DATE asc
     </select>
 
 </mapper>

@@ -41,6 +41,7 @@
         <th data-options="field:'checkbox',align:'center',halign:'center',checkbox:true"></th>
         <th data-options="field:'sysid',align:'center',halign:'center',hidden:'hidden'">sysid</th>
         <th data-options="field:'ip',align:'center',halign:'center',editor:'textbox',width:'50px'">服务器IP</th>
+        <th data-options="field:'category',align:'center',halign:'center',editor:'textbox',width:'50px'">服务器类型</th>
         <th data-options="field:'loginname',align:'center',halign:'center',editor:'textbox',width:'50px'">登录名</th>
         <th data-options="field:'loginpwd',align:'center',halign:'center',editor:'textbox',width:'50px'">登录密码</th>
         <th data-options="field:'personcharge',align:'center',halign:'center',editor:'textbox',width:'50px'">负责人</th>
@@ -63,6 +64,14 @@
              </td>
              <td>
                  <input id="txtip" name="txtip" class="easyui-textbox" style="width:200px;"/>
+             </td>
+         </tr>
+         <tr>
+             <td width="30%" align="right">
+                 <label for="txtcategory">服务器类型</label>
+             </td>
+             <td>
+                 <input id="txtcategory" name="txtcategory" class="easyui-textbox" style="width:200px;"/>
              </td>
          </tr>
          <tr>
@@ -176,6 +185,7 @@
         function openDialog(){
             //将弹框内文本框置为空
             $('#txtip').textbox('setValue','');
+            $('#txtcategory').textbox('setValue','');
             $('#txtloginname').textbox('setValue','');
             $('#txtloginpwd').textbox('setValue','');
             $('#txtpcharge').textbox('setValue','');

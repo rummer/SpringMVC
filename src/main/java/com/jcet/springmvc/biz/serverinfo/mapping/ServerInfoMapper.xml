@@ -11,10 +11,11 @@
         <result column="CREATED_BY" jdbcType="VARCHAR" property="created_by"/>
         <result column="CREATED_DATE" jdbcType="VARCHAR" property="created_date"/>
         <result column="FLAG" jdbcType="VARCHAR" property="flag"/>
+        <result column="CATEGORY" jdbcType="VARCHAR" property="category"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        SYSID,IP,LOGINNAME,LOGINPWD,REMARK,PERSONCHARGE,CREATED_BY,TO_CHAR(CREATED_DATE,'YYYY-MM-DD HH24:MI:SS') CREATED_DATE ,FLAG
+        SYSID,IP,LOGINNAME,LOGINPWD,REMARK,PERSONCHARGE,CREATED_BY,TO_CHAR(CREATED_DATE,'YYYY-MM-DD HH24:MI:SS') CREATED_DATE ,FLAG,CATEGORY
     </sql>
 
     <select id="searchByMap" parameterType="java.util.HashMap" resultMap="BaseResultMap">
@@ -57,13 +58,16 @@
             <if test="flag!=null">
                 FLAG = #{flag,jdbcType=VARCHAR},
             </if>
+            <if test="category!=null">
+                CATEGORY = #{category,jdbcType=VARCHAR},
+            </if>
         </set>
         where sysid = #{sysid,jdbcType=VARCHAR}
     </update>
 
     <insert id="insertBySelective" parameterType="com.jcet.springmvc.biz.serverinfo.domain.ServerInfo">
           insert into cim_server_info
-          (sysid,ip,loginname,loginpwd,personcharge,remark,created_by,created_date,flag)
+          (sysid,ip,loginname,loginpwd,personcharge,remark,created_by,created_date,flag,category)
           <trim prefix="values (" suffix=")" suffixOverrides=",">
               sys_guid(),
               <if test="ip != null">
@@ -87,6 +91,9 @@
               sysdate,
               <if test="flag != null">
                   #{flag,jdbcType=VARCHAR},
+              </if>
+              <if test="category != null">s
+                  #{category,jdbcType=VARCHAR},
               </if>
           </trim>
     </insert>

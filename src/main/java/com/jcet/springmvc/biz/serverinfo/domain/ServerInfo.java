@@ -12,6 +12,7 @@ public class ServerInfo {
     private String created_by;
     private Date created_date;
     private String flag;
+    private String Category;
 
     public String getSysid() {
         return sysid;
@@ -80,4 +81,12 @@ public class ServerInfo {
     public String getFlag() { return flag; }
 
     public void setFlag(String flag) { this.flag = flag; }
+
+    public String getCategory() {
+        return Category;
+    }
+
+    public void setCategory(String category) {
+        Category = category;
+    }
 }

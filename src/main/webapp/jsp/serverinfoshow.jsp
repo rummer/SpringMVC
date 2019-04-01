@@ -13,8 +13,6 @@
     <div id="chartmain" style="width:100%;height:400px;"></div>
 
     <script type="text/javascript">
-
-        <!--页面刷新的时候执行 -->
         $(function(){
             setFsChartBar();
         });
@@ -22,14 +20,13 @@
         function setFsChartBar(){
             var Chart=echarts.init(document.getElementById("chartmain"));//初始化
             //用户等待
-            Chart.showLoading(
-                {text: 'Loading...'  }
-            );
+            Chart.showLoading({text: 'Loading...'  });
 
             var serverIp = GetQueryString("ip");
             getData(Chart,serverIp); //先执行一次，以防等十秒后才出现图表
             setInterval(function(){//定时器
                 getData(Chart, serverIp);
+
             }, 10*1000);//每隔10秒刷新一次
         }
 
@@ -40,6 +37,23 @@
             if(r!=null)return  unescape(r[2]); return null;
         }
 
+        function splitData(rawData){
+            var categoryData=[];
+            var values=[];
+            for(var i=0;i<rawData.length;i++){
+                categoryData.push(rawData[i].cREATED_DATE);
+                //values.push(rawData[i].cPU);
+                var data = [];
+                data.push(rawData[i].cREATED_DATE);
+                data.push(rawData[i].cPU);
+                values.push(data);
+            }
+
+            return {
+                categoryData:categoryData,
+                values:values
+            };
+        }
 
         //获取数据的方法
         function getData(Chart,serverIp){
@@ -50,14 +64,7 @@
                 data:{serverIp:serverIp},
                 type:'post',
                 success:function(data){
-                    var chartDatas = [];
-
-                    for(var i=0;i<data.Record.length;i++){
-                        var obj=new Object();
-                        obj.name=data.Record[i].cREATED_DATE;
-                        obj.value=data.Record[i].cPU;
-                        chartDatas[i]=obj;
-                    }
+                    var chartDatas = splitData(data.Record);
 
                     var option = {
                         title: {
@@ -65,29 +72,56 @@
                         },
 
                         legend: {
-                            data:['CPU(%)']
+                            top:10,
+                            left:'center',
+                            data:['CPU']
                         },
 
                         tooltip: {
-                            trigger: 'axis'
+                            trigger: 'axis',
+                        },
+
+                        toolbox: { //可视化的工具箱
+                            show: true,
+                            feature: {
+                                dataView: { //数据视图
+                                    show: true
+                                },
+                                restore: { //重置
+                                    show: true
+                                },
+                                dataZoom: { //数据缩放视图
+                                    show: true
+                                },
+                                saveAsImage: {//保存图片
+                                    show: true
+                                },
+                                magicType: {//动态类型切换
+                                    type: ['bar', 'line']
+                                }
+                            }
                         },
 
                         xAxis: {
-                            type:'category',
-                            trigger:'axis',
-                            data:["2019-3-22 00:00","2019-3-22 01:00","2019-3-22 02:00","2019-3-22 03:00","2019-3-22 04:00"]
+                            type:'time',
+                            splitLine:{
+                                show:true
+                            }
+
                         },
 
                         yAxis: {
                             type: 'value',
-                            axisLabel:{
-                                formatter:'{value}%'
+                            boundaryGap:[0,'100%'],
+                            splitLine:{
+                                show:true
                             }
                         },
+
                         series : [{
-                            name:'CPU',
+                            name:'CPU模拟数据',
                             type:'line',
-                            data:chartDatas
+                            data:chartDatas.values
                         }]
                     };
                     //结束
