@@ -44,7 +44,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/jcet/springmvc/biz/demo/controller/Producer.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="152">
-              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+              <caret line="8" column="53" selection-start-line="8" selection-start-column="53" selection-end-line="8" selection-end-column="53" />
             </state>
           </provider>
         </entry>
@@ -203,10 +203,11 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="627" />
+    <option name="y" value="43" />
     <option name="width" value="1055" />
-    <option name="height" value="738" />
+    <option name="height" value="713" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -572,12 +573,12 @@
       <workItem from="1553762064490" duration="1639000" />
       <workItem from="1553824645952" duration="4790000" />
       <workItem from="1553835678636" duration="1690000" />
-      <workItem from="1554078930105" duration="8997000" />
+      <workItem from="1554078930105" duration="9533000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="388768000" />
+    <option name="totallyTimeSpent" value="389304000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -984,7 +985,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/jcet/springmvc/biz/demo/controller/Producer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+          <caret line="8" column="53" selection-start-line="8" selection-start-column="53" selection-end-line="8" selection-end-column="53" />
         </state>
       </provider>
     </entry>
