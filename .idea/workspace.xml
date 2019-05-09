@@ -189,8 +189,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -237,6 +235,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView" />
     </panes>
   </component>
@@ -526,11 +526,12 @@
       <workItem from="1553835678636" duration="1690000" />
       <workItem from="1554078930105" duration="9707000" />
       <workItem from="1554116322010" duration="138000" />
+      <workItem from="1554946151246" duration="56000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="389616000" />
+    <option name="totallyTimeSpent" value="389672000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -565,7 +566,7 @@
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49621212" weight="0.4641638" />
       <window_info anchor="bottom" id="Spring" order="8" weight="0.32764506" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.32764506" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49824563" visible="true" weight="0.33712122" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49824563" visible="true" weight="0.34242424" />
       <window_info id="Web" order="6" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="7" />
       <window_info id="Favorites" order="5" side_tool="true" weight="0.32954547" />
